@@ -104,6 +104,14 @@ public class Aberiori {
   // A map of the dependencies: class2superclass
   Map<String, Set<String>> class2super = [:].withDefault { new LinkedHashSet<String>() }
 
+  public Map<Integer, String> getInt2Class() {
+    return int2class
+  }
+
+  public Map<String, Integer> getClass2Int() {
+    return class2int
+  }
+
   /**
    * Default constructor
    */
