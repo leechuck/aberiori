@@ -189,11 +189,11 @@ public class Aberiori {
 
       // if the line is  a comment, is  empty or is a
       // kind of metadata
-      /*      if (line.isEmpty() == true ||
-	  line.charAt(0) == '#' || line.charAt(0) == '%'
-	  || line.charAt(0) == '@') {
-	continue;
-	}*/
+      //      if (line.isEmpty() == true ||
+      //line.charAt(0) == '#' || line.charAt(0) == '%'
+      //|| line.charAt(0) == '@') {
+      //continue;
+      //}
 
       // split the line according to spaces
       String[] lineSplited = line.split(" ");
@@ -378,14 +378,24 @@ public class Aberiori {
     // For each itemset I1 and I2 of level k-1
     for (int i = 0; i < frequent1.size(); i++) {
       Integer item1 = frequent1.get(i);
+      def item1s = int2class[item1]
       for (int j = i + 1; j < frequent1.size(); j++) {
   	Integer item2 = frequent1.get(j);
 
-	Integer[] temp = new Integer[2]
-	temp[0] = item1
-	temp[1] = item2
-  	// Create a new candidate by combining itemset1 and itemset2
-  	candidates.add(new Itemset(temp));
+	def item2s = int2class[item2]
+
+	Boolean isEligible = true
+	if (item2s in class2super[item1s] || item1s in class2super[item2s]) {
+	  isEligible = false
+	}
+
+	if (isEligible) {
+	  Integer[] temp = new Integer[2]
+	  temp[0] = item1
+	  temp[1] = item2
+	  // Create a new candidate by combining itemset1 and itemset2
+	  candidates.add(new Itemset(temp));
+	}
       }
     }
     return candidates;
